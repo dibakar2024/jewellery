@@ -1,14 +1,14 @@
 import React from 'react';
 
 const partlogos = [
-  "src/assets/images/partner1.jpg",
-  "src/assets/images/partner2.jpg",
-  "src/assets/images/partner3.jpg",
-  "src/assets/images/partner4.jpg",
-  "src/assets/images/partner5.jpg",
-  "src/assets/images/partner6.jpg",
-  "src/assets/images/partner7.jpg",
-  "src/assets/images/partner8.jpg",
+  "/assets/images/partner1.jpg",
+  "/assets/images/partner2.jpg",
+  "/assets/images/partner3.jpg",
+  "/assets/images/partner4.jpg",
+  "/assets/images/partner5.jpg",
+  "/assets/images/partner6.jpg",
+  "/assets/images/partner7.jpg",
+  "/assets/images/partner8.jpg",
   
 ];
 
