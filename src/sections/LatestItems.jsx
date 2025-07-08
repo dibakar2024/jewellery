@@ -6,7 +6,7 @@ const productData = [
     id: 1,
     title: "Bold Earrings",
     price: "$28.00",
-    image: "src/assets/images/earring1.png",
+    image: "/assets/images/earring1.png",
     position: {
       desktop: { top: "32%", left: "63%" },
       mobile: { top: "35%", left: "74%" },
@@ -16,7 +16,7 @@ const productData = [
     id: 2,
     title: "Layered Necklace",
     price: "$34.00",
-    image: "src/assets/images/necklace1.png",
+    image: "/assets/images/necklace1.png",
     position: {
       desktop: { top: "81%", left: "23%" },
       mobile: { top: "78%", left: "3%" },
@@ -26,7 +26,7 @@ const productData = [
     id: 3,
     title: "Trending Bracelet",
     price: "$12.00",
-    image: "src/assets/images/bracelet1.png",
+    image: "/assets/images/bracelet1.png",
     position: {
       desktop: { top: "77%", left: "11%" },
       mobile: { top: "46%", left: "28%" },
@@ -73,7 +73,7 @@ export default function Lookbook() {
       {/* Right: Image + Hotspots */}
       <div className="relative w-full max-h-full md:w-1/2">
         <img
-          src="src/assets/images/latestimg.jpg"
+          src="/assets/images/latestimg.jpg"
           alt="Latest"
           className="w-full object-cover max-h-full"
         />
