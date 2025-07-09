@@ -10,9 +10,11 @@ import {
 
 import { BsGeoAltFill, BsTelephoneFill, BsEnvelopeFill } from "react-icons/bs";
 
+const currentYear = new Date().getFullYear();
+
 function Footer() {
   return (
-    <footer className="bg-gray-100 text-gray-700 py-10 px-4">
+    <div><footer className="bg-gray-100 text-gray-700 py-10 px-4">
       <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row flex-wrap gap-24 justify-between px-4">
         
         {/* Logo + Contact Info */}
@@ -77,6 +79,7 @@ function Footer() {
         </div>
       </div>
     </footer>
+    <div className="endFooter bg-black text-white text-center py-8">Jewellery &copy; {currentYear}. All Rights Reserved.</div></div>
   );
 }
 
