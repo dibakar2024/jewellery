@@ -3,35 +3,12 @@ import { ShoppingCart, Heart, Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '../assets/images/logo.jpg';
 import { useWishlist } from '../js/WishlistContext';
-import { useNavigate } from 'react-router-dom';
-import products from '../js/products';
-
-const [showSearch, setShowSearch] = useState(false);
-const [searchText, setSearchText] = useState('');
-const navigate = useNavigate();
-
-const handleSearch = (e) => {
-  if (e.key === 'Enter') {
-    const foundProduct = products.find(
-      (product) =>
-        product.name.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    if (foundProduct) {
-      navigate(`/product/${foundProduct.id}`);
-      setShowSearch(false);
-      setSearchText('');
-    } else {
-      alert('Product not found');
-    }
-  }
-};
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { wishlist } = useWishlist();
 
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0); 
 
   useEffect(() => {
     const updateCartCount = () => {
