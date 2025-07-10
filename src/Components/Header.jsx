@@ -1,27 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Heart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Heart, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '../assets/images/logo.jpg';
 import { useWishlist } from '../js/WishlistContext';
+import products from '../js/products';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { wishlist } = useWishlist();
-
-  const [cartCount, setCartCount] = useState(0); 
+  const [cartCount, setCartCount] = useState(0);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const updateCartCount = () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-      setCartCount(count);
+      if (typeof window !== 'undefined') {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+        setCartCount(count);
+      }
     };
 
     updateCartCount();
-    window.addEventListener("storage", updateCartCount);
-    return () => window.removeEventListener("storage", updateCartCount);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', updateCartCount);
+      return () => window.removeEventListener('storage', updateCartCount);
+    }
   }, []);
 
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      const foundProduct = products.find((product) =>
+        product.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+
+      if (foundProduct) {
+        navigate(`/product/${foundProduct.id}`);
+        setShowSearch(false);
+        setSearchText('');
+      } else {
+        alert('Product not found');
+      }
+    }
+  };
 
   const menuVariants = {
     hidden: {
@@ -61,8 +84,27 @@ function Header() {
           <a href="/contact" className="hover:text-yellow-600">Contact Us</a>
         </nav>
 
-        {/* Icons + Mobile Menu Toggle */}
-        <div className="flex items-center space-x-4">
+        {/* Icons */}
+        <div className="flex items-center space-x-4 relative">
+          {/* Search */}
+          <div className="relative">
+            <Search
+              className="h-6 w-6 text-gray-700 hover:text-blue-500 cursor-pointer"
+              onClick={() => setShowSearch(!showSearch)}
+            />
+            {showSearch && (
+              <input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={handleSearch}
+                placeholder="Search product..."
+                className="absolute top-8 right-0 w-48 md:w-64 px-2 py-1 border border-gray-300 rounded-md shadow-md focus:outline-none text-sm bg-white z-10"
+                autoFocus
+              />
+            )}
+          </div>
+
           {/* Wishlist */}
           <div className="relative cursor-pointer">
             <Heart className="h-6 w-6 text-gray-700 hover:text-pink-500" />
@@ -74,7 +116,10 @@ function Header() {
           </div>
 
           {/* Cart */}
-          <div className="relative cursor-pointer" onClick={() => window.location.href = "/cart"}>
+          <div
+            className="relative cursor-pointer"
+            onClick={() => navigate('/cart')}
+          >
             <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-yellow-600" />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
